@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Rumah Sakit</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+    <div class="sidebar">
+
+        <h2>RS SEHAT</h2>
+
+        <!-- DASHBOARD -->
+        <a href="/">
+            Dashboard
+        </a>
+
+        <!-- ========================= -->
+        <!-- DATA MASTER -->
+        <!-- ========================= -->
+        <div class="dropdown">
+
+            <button class="dropdown-btn">
+                Data Master ▼
+            </button>
+
+            <div class="dropdown-content">
+
+                <a href="/pasien">
+                    Data Pasien
+                </a>
+
+                <a href="/tenaga_medis">
+                    Tenaga Medis
+                </a>
+
+                <a href="/ruangan">
+                    Ruangan
+                </a>
+
+                <a href="/poliklinik">
+                    Poliklinik
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- TRANSAKSI MEDIS -->
+        <!-- ========================= -->
+        <div class="dropdown">
+
+            <button class="dropdown-btn">
+                Transaksi Medis ▼
+            </button>
+
+            <div class="dropdown-content">
+
+                <a href="/registrasi">
+                    Registrasi
+                </a>
+
+                {% if session['level'] in ['admin', 'dokter'] %}
+                <a href="/rekam_medis">
+                    Rekam Medis
+                </a>
+                {% endif %}
+
+                {% if session['level'] in ['admin', 'perawat'] %}
+                <a href="/rawat_inap">
+                    Rawat Inap
+                </a>
+                 {% endif %}
+
+                 {% if session['level'] in ['admin', 'dokter', 'perawat'] %}
+                <a href="/penunjang">
+                    Pemeriksaan Penunjang
+                </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- ADMINISTRASI & KEUANGAN -->
+        <!-- ========================= -->
+        <div class="dropdown">
+
+            <button class="dropdown-btn">
+                Administrasi & Keuangan ▼
+            </button>
+
+            <div class="dropdown-content">
+
+                {% if session['level'] == 'admin' %}
+                <a href="/billing">
+                    Billing / Tagihan
+                </a>
+                {% endif %}
+
+                <a href="/jadwal_dokter">
+                    Jadwal Dokter
+                </a>
+
+                {% if session['level'] == 'admin' %}
+                <a href="/users">
+                    User / Akun
+                </a>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- FARMASI -->
+        <!-- ========================= -->
+         {% if session['level'] in ['admin', 'perawat'] %}
+        <a href="/farmasi">
+            Farmasi
+        </a>
+        {% endif %}
+
+        <!-- ========================= -->
+        <!-- LOGISTIK -->
+        <!-- ========================= -->
+        <a href="/logistik">
+            Logistik
+        </a>
+        <a href="/logout">
+            Logout
+        </a>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ========================= -->
+    <div class="main">
+
+        <!-- NAVBAR -->
+        <div class="navbar">
+
+            <h1>
+                Dashboard Rumah Sakit
+            </h1>
+
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+
+            <div class="overlay">
+
+                <h2>
+                    Selamat Datang
+                </h2>
+
+                <p>
+                    Sistem Informasi Rumah Sakit Modern
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- CARD STATISTIK -->
+        <!-- ========================= -->
+        <div class="card-container">
+
+            <div class="card">
+
+                <h3>Total Pasien</h3>
+
+                <p>
+                    {{ total_pasien }}
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Tenaga Medis</h3>
+
+                <p>
+                    {{ total_medis }}
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Ruangan</h3>
+
+                <p>
+                    {{ total_ruangan }}
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Farmasi</h3>
+
+                <p>
+                    {{ total_obat }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- MENU CEPAT -->
+        <!-- ========================= -->
+        <div class="menu-grid">
+
+            {% if session['level'] == 'admin' %}
+            <!-- PASIEN -->
+            <a href="/" class="menu-card">
+
+                👨‍⚕️
+
+                <span>
+                    Data Pasien
+                </span>
+
+            </a>
+            {% endif %}
+
+            <!-- TENAGA MEDIS -->
+            <a href="/tenaga_medis"
+            class="menu-card">
+
+                🩺
+
+                <span>
+                    Tenaga Medis
+                </span>
+
+            </a>
+
+            <!-- RUANGAN -->
+            <a href="/ruangan"
+            class="menu-card">
+
+                🏥
+
+                <span>
+                    Ruangan
+                </span>
+
+            </a>
+
+            <!-- POLIKLINIK -->
+            <a href="/poliklinik"
+            class="menu-card">
+
+                🏨
+
+                <span>
+                    Poliklinik
+                </span>
+
+            </a>
+
+            <!-- FARMASI -->
+            <a href="/farmasi"
+            class="menu-card">
+
+                💊
+
+                <span>
+                    Farmasi
+                </span>
+
+            </a>
+
+            <!-- LOGISTIK -->
+            <a href="/logistik"
+            class="menu-card">
+
+                📦
+
+                <span>
+                    Logistik
+                </span>
+
+            </a>
+
+            <!-- REKAM MEDIS -->
+            <a href="/rekam_medis"
+            class="menu-card">
+
+                📋
+
+                <span>
+                    Rekam Medis
+                </span>
+
+            </a>
+
+            <!-- REGISTRASI -->
+            <a href="/registrasi"
+            class="menu-card">
+
+                📝
+
+                <span>
+                    Registrasi
+                </span>
+
+            </a>
+
+            <!-- RAWAT INAP -->
+            <a href="/rawat_inap"
+            class="menu-card">
+
+                🛏️
+
+                <span>
+                    Rawat Inap
+                </span>
+
+            </a>
+
+            <!-- PEMERIKSAAN -->
+            <a href="/penunjang"
+            class="menu-card">
+
+                🔬
+
+                <span>
+                    Pemeriksaan
+                </span>
+
+            </a>
+
+            <!-- BILLING -->
+            <a href="/billing"
+            class="menu-card">
+
+                💳
+
+                <span>
+                    Billing
+                </span>
+
+            </a>
+
+            <!-- JADWAL DOKTER -->
+            <a href="/jadwal_dokter"
+            class="menu-card">
+
+                📅
+
+                <span>
+                    Jadwal Dokter
+                </span>
+
+            </a>
+
+            <!-- USER -->
+            <a href="/users"
+            class="menu-card">
+
+                👤
+
+                <span>
+                    User / Akun
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

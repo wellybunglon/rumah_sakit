@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Rawat Inap</title>
+
+    <link rel="stylesheet" 
+    href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+ <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+    <div class="sidebar">
+
+        <h2>RS SEHAT</h2>
+
+        <!-- DASHBOARD -->
+        <a href="/">
+            Dashboard
+        </a>
+
+        <!-- ========================= -->
+        <!-- DATA MASTER -->
+        <!-- ========================= -->
+        <div class="dropdown">
+
+            <button class="dropdown-btn">
+                Data Master ▼
+            </button>
+
+            <div class="dropdown-content">
+
+                <a href="/pasien">
+                    Data Pasien
+                </a>
+
+                <a href="/tenaga_medis">
+                    Tenaga Medis
+                </a>
+
+                <a href="/ruangan">
+                    Ruangan
+                </a>
+
+                <a href="/poliklinik">
+                    Poliklinik
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- TRANSAKSI MEDIS -->
+        <!-- ========================= -->
+        <div class="dropdown">
+
+            <button class="dropdown-btn">
+                Transaksi Medis ▼
+            </button>
+
+            <div class="dropdown-content">
+
+                <a href="/registrasi">
+                    Registrasi
+                </a>
+
+                {% if session['level'] in ['admin', 'dokter'] %}
+                <a href="/rekam_medis">
+                    Rekam Medis
+                </a>
+                {% endif %}
+
+                {% if session['level'] in ['admin', 'perawat'] %}
+                <a href="/rawat_inap">
+                    Rawat Inap
+                </a>
+                 {% endif %}
+
+                 {% if session['level'] in ['admin', 'dokter', 'perawat'] %}
+                <a href="/penunjang">
+                    Pemeriksaan Penunjang
+                </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- ADMINISTRASI & KEUANGAN -->
+        <!-- ========================= -->
+        <div class="dropdown">
+
+            <button class="dropdown-btn">
+                Administrasi & Keuangan ▼
+            </button>
+
+            <div class="dropdown-content">
+
+                {% if session['level'] == 'admin' %}
+                <a href="/billing">
+                    Billing / Tagihan
+                </a>
+                {% endif %}
+
+                <a href="/jadwal_dokter">
+                    Jadwal Dokter
+                </a>
+
+                {% if session['level'] == 'admin' %}
+                <a href="/users">
+                    User / Akun
+                </a>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- FARMASI -->
+        <!-- ========================= -->
+         {% if session['level'] in ['admin', 'perawat'] %}
+        <a href="/farmasi">
+            Farmasi
+        </a>
+        {% endif %}
+
+        <!-- ========================= -->
+        <!-- LOGISTIK -->
+        <!-- ========================= -->
+        <a href="/logistik">
+            Logistik
+        </a>
+        <a href="/logout">
+            Logout
+        </a>
+
+    </div>
+
+<!---MAIN-->
+ <div class="main">
+
+    <!-- HEADER -->
+        <div class="header">
+
+            <h1>Tambah Billing / Tagihan</h1>
+
+        </div>
+
+    <div class="header">
+
+        <div class="table-container">
+
+            <div class="form-group">
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>Nama Pasien</label>
+                <input 
+                type="text"
+                name="nama_pasien">
+            </div>
+
+            <div class="form-group">
+
+                <label>Nama Ruangan</label>
+                <input 
+                type="text"
+                name="ruangan">
+            </div>
+
+            <div class="form-group">
+
+                <label>Tanggal Masuk</label>
+                <input 
+                type="date"
+                name="masuk">
+            </div>
+
+            <div class="form-group">
+
+                <label>Tanggal Keluar</label>
+                <input type="date"
+                name="keluar">
+            </div>
+            
+            <div class="form-group">
+
+                <label>Tanggal Keluar</label>
+                <input type="date"
+                name="keluar">
+            </div>
+            
+            <div class="form-group">
+                
+                <label>Status Pasien</label>
+                <input type="text"
+                name="status">
+            </div>
+
+            <button type="submit"
+            class="btn">
+                Simpan
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
