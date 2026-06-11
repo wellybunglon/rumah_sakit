@@ -4,16 +4,16 @@
 
 ### Login
 
-![Login](images/RS Sehat.png)
+![Login](templates/RS Sehat.png)
 
 ### Dashboard
 
-![Dashboard](images/DS RS.png)
+![Dashboard](templates/DS RS.png)
 
 ### Data Pasien
 
-![Pasien](images/Tenaga Medis.png)
+![Pasien](templates/Tenaga Medis.png)
 
 ### Billing
 
-![Billing](images/Data Pasien.png)
+![Billing](templates/Data Pasien.png)
