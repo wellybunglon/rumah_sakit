@@ -12,9 +12,9 @@
 
 ### Data Pasien
 
-![Pasien](images/datapasien.png)
+![DataPasien](images/datapasien.png)
 
 ### Billing
 
-![Billing](images/tenagamedis.png)
+![TenagaMedis](images/tenagamedis.png)
 
